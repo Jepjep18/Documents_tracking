@@ -12,4 +12,21 @@ class DocumentController extends Controller
         $documents = Document::all();
         return view('doctrack.index', compact('documents'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'personnel' => 'required',
+            'document' => 'required|file|max:10240', // Example: max 10MB file size
+        ]);
+
+        $documentPath = $request->file('document')->store('documents');
+
+        Document::create([
+            'personnel' => $request->input('personnel'),
+            'document_path' => $documentPath,
+        ]);
+
+        return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
+    }
 }

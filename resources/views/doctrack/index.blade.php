@@ -13,16 +13,17 @@
                         <div class="bg-white p-8 rounded shadow-md w-full md:w-1/2">
                             <!-- Modal Content -->
                             <h2 class="text-lg font-semibold mb-4">Create Documents</h2>
-                            <form action="{{ route('doctrack.store') }}" method="POST">
+                            <form action="{{ route('doctrack.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf <!-- Add CSRF token -->
                                 <div class="mb-4">
                                     <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Personnel/Office</label>
                                     <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                                        <option value="">Accounting Building</option>
-                                        <option value="">RD Evamay</option>
-                                        <option value="">Engr Fuentes</option>
-                                        <option value="">Sir Jasper</option>
-                                        <option value="">Sir Vien</option>
-                                        <option value="">Maam Lucky</option>
+                                        <option value="Accounting Building">Accounting Building</option>
+                                        <option value="RD Evamay">RD Evamay</option>
+                                        <option value="Engr Fuentes">Engr Fuentes</option>
+                                        <option value="Sir Jasper">Sir Jasper</option>
+                                        <option value="Sir Vien">Sir Vien</option>
+                                        <option value="Maam Lucky">Maam Lucky</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
@@ -36,6 +37,7 @@
                             <button id="closeModalButton" class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded">Close</button>
                         </div>
                     </div>
+
                     
                     <div class="p-6">
                         <!-- Table content -->

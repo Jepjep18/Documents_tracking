@@ -9,7 +9,7 @@ use App\Http\Controllers\DocumentController;
 Route::group(['middleware' => ['auth','verified']], function() {    
     Route::controller(DocumentController::class)->group(function () {
         Route::get('/document-tracking', 'index')->name('doctrack.index');
-        Route::post('/document-tracking', [DocumentController::class, 'store'])->name('doctrack.store');
+        Route::post('/doctrack', [DocumentController::class, 'store'])->name('doctrack.store');
 
         
     });     
