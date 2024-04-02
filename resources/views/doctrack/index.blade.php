@@ -1,11 +1,12 @@
 <x-app-layout>
+                <div class="border border-gray-300 rounded-md p-4">
+                <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
+                </div>
     <div class="container mx-auto">
         <div class="flex justify-center">
             <div class="w-full lg:w-10/12">
                 <div class="bg-white shadow-md rounded my-6">
-                <div class="border border-gray-300 rounded-md p-4">
-    <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
-</div>
+                
 
                     <div class="px-6 py-4 border-b border-gray-200 font-semibold uppercase">
                         Document Tracking
@@ -65,7 +66,7 @@
                 {{ $document->personnel }}
                 @endif
             </td>
-            <td class="py-2"><a href="{{ asset($document->document_path) }}" download>Download Document</a></td>
+            <td class="py-2"><a href="{{ asset('storage/' . $document->document_path) }}" download style="text-decoration: underline;">Download Document</a></td>
 
             <td class="py-2">{{ $document->created_at }}</td>
             <td class="py-2 text-left"> <!-- Display reuploaded documents here if necessary --> </td>
