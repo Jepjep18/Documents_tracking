@@ -3,7 +3,10 @@
         <div class="flex justify-center">
             <div class="w-full lg:w-10/12">
                 <div class="bg-white shadow-md rounded my-6">
-                    <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase mb-4">Create Documents</button>
+                <div class="border border-gray-300 rounded-md p-4">
+    <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
+</div>
+
                     <div class="px-6 py-4 border-b border-gray-200 font-semibold uppercase">
                         Document Tracking
                     </div>
@@ -42,16 +45,36 @@
                     <div class="p-6">
                         <!-- Table content -->
                         <table class="w-full table-fixed">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="w-1/6 py-2">Personnel/Office</th>
-                                    <th class="w-2/6 py-2">Uploaded Documents</th>
-                                    <th class="w-1/6 py-2">Accept Date</th>
-                                    <th class="w-2/6 py-2">Reuploaded Documents</th>
-                                    <th class="w-1/6 py-2">Released Date</th>
-                                    <th class="w-1/6 py-2">Remarks</th>
-                                </tr>
-                            </thead>
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="w-1/6 py-2 text-left">Personnel/Office</th>
+            <th class="w-2/6 py-2 text-left">Uploaded Documents</th>
+            <th class="w-1/6 py-2 text-left">Accept Date</th>
+            <th class="w-2/6 py-2 text-left">Reuploaded Documents</th>
+            <th class="w-1/6 py-2 text-left">Released Date</th>
+            <th class="w-1/6 py-2 text-left">Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($documents as $document)
+        <tr>
+            <td class="py-2">
+                @if(is_object($document->personnel))
+                {{ $document->personnel->name }}
+                @else
+                {{ $document->personnel }}
+                @endif
+            </td>
+            <td class="py-2"><a href="{{ asset($document->document_path) }}" download>Download Document</a></td>
+
+            <td class="py-2">{{ $document->created_at }}</td>
+            <td class="py-2 text-left"> <!-- Display reuploaded documents here if necessary --> </td>
+            <td class="py-2 text-left"> <!-- Display released date here if necessary --> </td>
+            <td class="py-2 text-left"> <!-- Display remarks here if necessary --> </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
                     </div>
                 </div>
             </div>
