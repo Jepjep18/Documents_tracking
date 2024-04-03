@@ -21,16 +21,17 @@
                             <form action="{{ route('doctrack.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf <!-- Add CSRF token -->
                                 <div class="mb-4">
-                                    <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Department</label>
-                                    <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                                        <option value="Accounting Building">Accounting Building</option>
-                                        <option value="RD Evamay">RD Evamay</option>
-                                        <option value="Engr Fuentes">Engr Fuentes</option>
-                                        <option value="Sir Jasper">Sir Jasper</option>
-                                        <option value="Sir Vien">Sir Vien</option>
-                                        <option value="Maam Lucky">Maam Lucky</option>
+                                    <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                                    <select id="department" name="department" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="ILCDB">ILCDB</option>
+                                        <option value="FWP">FWP</option>
+                                        <option value="SUPPLY">SUPPLY</option>
+                                        <option value="BUDGET">BUDGET</option>
+                                        <option value="PNPKI">PNPKI</option>
                                     </select>
                                 </div>
+
                                 <div class="mb-4">
                                     <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Assigned Personnel</label>
                                     <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
@@ -58,35 +59,74 @@
                     <div class="p-6">
                         <!-- Table content -->
                         <table class="w-full table-fixed">
-    <thead>
-        <tr class="bg-gray-100">
-            <th class="w-1/6 py-2 text-left">Personnel/Office</th>
-            <th class="w-2/6 py-2 text-left">Uploaded Documents</th>
-            <th class="w-1/6 py-2 text-left">Accept Date</th>
-            <th class="w-2/6 py-2 text-left">Reuploaded Documents</th>
-            <th class="w-1/6 py-2 text-left">Released Date</th>
-            <th class="w-1/6 py-2 text-left">Remarks</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($documents as $document)
-        <tr>
-            <td class="py-2">
-                @if(is_object($document->personnel))
-                {{ $document->personnel->name }}
-                @else
-                {{ $document->personnel }}
-                @endif
-            </td>
-            <td class="py-2"><a href="{{ asset('storage/' . $document->document_path) }}" download style="text-decoration: underline;">Download Document</a></td>
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="w-1/6 py-2 text-left">Department</th>
+                                <th class="w-1/6 py-2 text-left">Personnel/Office</th>
+                                <th class="w-2/6 py-2 text-left">Uploaded Documents</th>
+                                <th class="w-1/6 py-2 text-left">Accept Date</th>
+                                <th class="w-2/6 py-2 text-left">Reuploaded Documents</th>
+                                <th class="w-1/6 py-2 text-left">Released Date</th>
+                                <th class="w-1/6 py-2 text-left">Remarks</th>
+                                <th class="w-1/6 py-2 text-left">Actions</th>   
+                            </tr>
 
-            <td class="py-2">{{ $document->created_at }}</td>
-            <td class="py-2 text-left"> <!-- Display reuploaded documents here if necessary --> </td>
-            <td class="py-2 text-left"> <!-- Display released date here if necessary --> </td>
-            <td class="py-2 text-left"> <!-- Display remarks here if necessary --> </td>
-        </tr>
-        @endforeach
-    </tbody>
+</thead>
+<tbody>
+    @foreach($documents as $document)
+    <tr>
+        <td class="py-2">
+            {{ $document->department }}
+        </td>
+        <td class="py-2">
+            @if(is_object($document->personnel))
+                {{ $document->personnel->name }}
+            @else
+                {{ $document->personnel }}
+            @endif
+        </td>
+        <td class="py-2"><a href="{{ asset('storage/' . $document->document_path) }}" download style="text-decoration: underline;">Download Document</a></td>
+        <td class="py-2">{{ $document->created_at }}</td>
+        <td class="py-2 text-left"></td>
+        <td class="py-2 text-left"></td>
+        <td class="py-2 text-left"></td>
+        <td class="py-2 text-left">
+
+        <div style="display: flex; justify-content: center;">
+
+        <button style="background-color: #4CAF50; /* Green */
+                    border: none;
+                    color: white;
+                    padding: 8px 16px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 14px;
+                    margin-right: 4px; /* Adjust margin between buttons */
+                    transition-duration: 0.4s;
+                    cursor: pointer;">Edit
+        </button>
+
+        <button style="background-color: #f44336; /* Red */
+                    border: none;
+                    color: white;
+                    padding: 8px 16px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 14px;
+                    margin-left: 4px; /* Adjust margin between buttons */
+                    transition-duration: 0.4s;
+                    cursor: pointer;">Delete
+        </button>
+    </div>
+</td>
+
+    </tr>
+    @endforeach
+</tbody>
+
+
 </table>
                     </div>
                 </div>
@@ -96,7 +136,6 @@
 
     <script>
         
-        // JavaScript to handle modal functionality
         const openModalButton = document.getElementById('openModalButton');
         const closeModalButton = document.getElementById('closeModalButton');
         const modal = document.getElementById('modal');

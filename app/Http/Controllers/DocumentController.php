@@ -17,23 +17,27 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'personnel' => 'required',
-            'document' => 'required|file|max:10240', // Example: max 10MB file size
-        ]);
+{
+    $request->validate([
+        'department' => 'required', // Validate the department field
+        'personnel' => 'required',
+        'document' => 'required|file|max:10240', // Example: max 10MB file size
+    ]);
 
-        // Store the file in 'public/upload' directory
-        $documentPath = $request->file('document')->store('upload', 'public');
+    // Store the file in 'public/upload' directory
+    $documentPath = $request->file('document')->store('upload', 'public');
 
-        // Associate the document with the currently authenticated user
-        Auth::user()->documents()->create([
-            'personnel' => $request->input('personnel'),
-            'document_path' => $documentPath,
-        ]);
+    // Create a new Document instance
+    $document = new Document();
+    $document->department = $request->input('department');
+    $document->personnel = $request->input('personnel');
+    $document->document_path = $documentPath;
 
-        return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
-    }
+    // Associate the document with the currently authenticated user
+    Auth::user()->documents()->save($document);
+
+    return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
+}
 
     
 }
