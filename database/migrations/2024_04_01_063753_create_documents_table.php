@@ -12,7 +12,7 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Add this line
+            $table->unsignedBigInteger('user_id'); 
             $table->string('personnel');
             $table->string('document_path');
             $table->timestamps();
