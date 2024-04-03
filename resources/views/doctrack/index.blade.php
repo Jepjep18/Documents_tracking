@@ -9,8 +9,9 @@
                 
 
                     <div class="px-6 py-4 border-b border-gray-200 font-semibold uppercase">
-                        Document Tracking
+                        <i class="fas fa-file-alt mr-2"></i> Document Tracking
                     </div>
+
 
                     <!-- Modal -->
                     <div id="modal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
@@ -20,7 +21,18 @@
                             <form action="{{ route('doctrack.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf <!-- Add CSRF token -->
                                 <div class="mb-4">
-                                    <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Personnel/Office</label>
+                                    <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Department</label>
+                                    <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                                        <option value="Accounting Building">Accounting Building</option>
+                                        <option value="RD Evamay">RD Evamay</option>
+                                        <option value="Engr Fuentes">Engr Fuentes</option>
+                                        <option value="Sir Jasper">Sir Jasper</option>
+                                        <option value="Sir Vien">Sir Vien</option>
+                                        <option value="Maam Lucky">Maam Lucky</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Assigned Personnel</label>
                                     <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
                                         <option value="Accounting Building">Accounting Building</option>
                                         <option value="RD Evamay">RD Evamay</option>
