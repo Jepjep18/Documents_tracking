@@ -12,7 +12,23 @@
                     <h3 class="text-lg font-semibold mb-4">{{ __("Welcome to your Dashboard!") }}</h3>
                     
                     <p>{{ __("You're logged in!") }}</p>
-                    <!-- Add more content here as needed -->
+                    
+                    <div class="mt-6">
+                        <h4 class="text-lg font-semibold mb-2">{{ __("Quick Links") }}</h4>
+                        <ul class="list-disc list-inside">
+                            <li><a href="{{ route('profile.edit') }}" class="text-blue-500 hover:underline">{{ __("Edit Profile") }}</a></li>
+                            <li><a href="{{ route('doctrack.index') }}" class="text-blue-500 hover:underline">{{ __("Document Tracking") }}</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="text-lg font-semibold mb-2">{{ __("Recent Activity") }}</h4>
+                        <ul class="list-disc list-inside">
+                            <li>{{ __("You uploaded a document on ") }} <span class="text-gray-500">{{ now()->subDays(2)->format('M d, Y') }}</span></li>
+                            <li>{{ __("You updated your profile on ") }} <span class="text-gray-500">{{ now()->subDays(1)->format('M d, Y') }}</span></li>
+                        </ul>
+                    </div>
+                    
                 </div>
             </div>
         </div>
