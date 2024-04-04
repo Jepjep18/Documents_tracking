@@ -1,7 +1,8 @@
 <x-app-layout>
     <div class="container">
         <h1>Edit Document</h1>
-        <form action="{{ route('documents.update', $document->id) }}" method="POST">
+        <!-- Edit Form -->
+        <form action="{{ route('documents.update', $document->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- Add your form fields here -->
@@ -19,5 +20,23 @@
             </div>
             <button type="submit" class="btn btn-primary">Update Document</button>
         </form>
+
+        <!-- Edit Button -->
+        <form action="{{ route('doctrack.edit', $document->id) }}" method="GET">
+            @csrf
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button">
+                Save
+            </button>
+        </form>
+
+            <!-- Delete Button -->
+        <form action="{{ route('doctrack.destroy', $document->id) }}" method="POST" style="display:inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded delete-button">
+                Delete
+            </button>
+        </form>
+
     </div>
 </x-app-layout>

@@ -40,24 +40,21 @@ class DocumentController extends Controller
 }
 
 public function edit($id)
-    {
-        // Fetch the document from the database
-        $document = Document::findOrFail($id);
-        
-        // Return a view for editing the document
-        return view('documents.edit', compact('document'));
-    }
+{
+    // Fetch document data and pass it to the edit view
+    $document = Document::findOrFail($id);
+    return view('doctrack.edit', compact('document'));
+}
 
-    public function destroy($id)
-    {
-        // Find the document by ID
-        $document = Document::findOrFail($id);
-        
-        // Delete the document
-        $document->delete();
-        
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Document deleted successfully.');
-    }
+
+public function destroy($id)
+{
+    // Delete the document
+    $document = Document::findOrFail($id);
+    $document->delete();
+    
+    // Redirect back to index page with success message
+    return redirect()->route('doctrack.index')->with('success', 'Document deleted successfully');
+}
     
 }

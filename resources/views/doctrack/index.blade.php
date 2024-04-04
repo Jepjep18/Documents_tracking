@@ -83,8 +83,7 @@
                                     <td class="py-2 text-left"></td>
                                     <td class="py-2 text-left">
                                         <div style="display: flex; justify-content: center;">
-                                        <button class="edit-button" id="editButton{{$document->id}}" onclick="location.href='{{ route('documents.edit', $document->id) }}'">Edit</button>
-                                        <button class="delete-button" id="deleteButton{{$document->id}}">Delete</button>
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button" id="editButton{{$document->id}}" onclick="location.href='{{ route('doctrack.edit', $document->id) }}'">Edit</button>
 
                                         </div>
                                     </td>
@@ -97,6 +96,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

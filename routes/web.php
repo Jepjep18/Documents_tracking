@@ -15,11 +15,10 @@ Route::group(['middleware' => ['auth','verified']], function() {
     });     
 });
 
-// Route for editing a document
-Route::get('/documents/{id}/edit', 'DocumentController@edit')->name('documents.edit');
+Route::get('/documents/{id}/edit', 'App\Http\Controllers\DocumentController@edit')->name('doctrack.edit');
+Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
+Route::put('/documents/{id}', 'App\Http\Controllers\DocumentController@update')->name('documents.update');
 
-// Route for deleting a document
-Route::delete('/documents/{id}', 'DocumentController@destroy')->name('documents.destroy');
 
 
 
