@@ -6,13 +6,13 @@ use App\Http\Controllers\DocumentController;
 
 
 
-Route::group(['middleware' => ['auth','verified']], function() {    
+Route::group(['middleware' => ['auth','verified']], function() {
     Route::controller(DocumentController::class)->group(function () {
         Route::get('/document-tracking', 'index')->name('doctrack.index');
         Route::post('/doctrack', [DocumentController::class, 'store'])->name('doctrack.store');
 
-        
-    });     
+
+    });
 });
 
 
@@ -35,8 +35,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
 
-require __DIR__.'/adminauth.php';
