@@ -56,7 +56,7 @@
                             <thead>
                                 <tr class="bg-gray-100">
                                     <th class="w-1/6 py-2 text-left">Department</th>
-                                    <th class="w-1/6 py-2 text-left">Personnel/Office</th>
+                                    <th class="w-1/6 py-2 text-left">Personnel</th>
                                     <th class="w-2/6 py-2 text-left">Uploaded Documents</th>
                                     <th class="w-1/6 py-2 text-left">Accept Date</th>
                                     <th class="w-2/6 py-2 text-left">Reuploaded Documents</th>
@@ -76,7 +76,15 @@
                                         {{ $document->personnel }}
                                         @endif
                                     </td>
-                                    <td class="py-2"><a href="{{ asset('storage/' . $document->document_path) }}" download style="text-decoration: underline;">Download Document</a></td>
+                                    <td class="py-2">
+    <a href="{{ asset('storage/upload/' . $document->document_path) }}" target="_blank" download>
+        {{ $document->file_name }}
+    </a>
+</td>
+
+
+
+
                                     <td class="py-2">{{ $document->created_at }}</td>
                                     <td class="py-2 text-left"></td>
                                     <td class="py-2 text-left"></td>

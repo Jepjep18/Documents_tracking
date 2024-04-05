@@ -13,19 +13,31 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <i class="fas fa-tachometer-alt mr-2"></i> <!-- Dashboard icon -->
+                        <i class="fas fa-tachometer-alt mr-2"></i> 
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('user.management') }}" :active="request()->routeIs('user.management')">
+                        <i class="fas fa-user-cog mr-2"></i> 
+                        {{ __('User Management') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('doctrack.index') }}" :active="request()->routeIs('doctrack.index')">
-                        <i class="fas fa-file-alt mr-2"></i> <!-- Document Tracking icon -->
+                        <i class="fas fa-file-alt mr-2"></i> 
                         {{ __('Document Tracking') }}
                     </x-nav-link>
                 </div>
 
-
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
+                        <i class="fas fa-users mr-2"></i>
+                        {{ __('Manage Departments & Personnel') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -48,12 +60,11 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+                        <!-- Logout Form -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); confirmLogout();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -93,12 +104,11 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
+                <!-- Logout Form -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); confirmLogout();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
@@ -106,3 +116,19 @@
         </div>
     </div>
 </nav>
+
+<!-- JavaScript function to handle logout confirmation -->
+<script>
+    function confirmLogout() {
+        // Display a confirmation dialog
+        if (confirm('Are you sure you want to log out?')) {
+            // If user confirms, submit the logout form
+            document.getElementById('logout-form').submit();
+        }
+    }
+</script>
+
+<!-- Hidden form to handle logout submission -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

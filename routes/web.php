@@ -3,23 +3,21 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DepartmentController;
 
 
-
-Route::group(['middleware' => ['auth','verified']], function() {    
-    Route::controller(DocumentController::class)->group(function () {
-        Route::get('/document-tracking', 'index')->name('doctrack.index');
-        Route::post('/doctrack', [DocumentController::class, 'store'])->name('doctrack.store');
-
-        
-    });     
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/document-tracking', [DocumentController::class, 'index'])->name('doctrack.index');
+    Route::post('/doctrack', [DocumentController::class, 'store'])->name('doctrack.store');
+    Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('doctrack.edit');
+    Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
+    Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
 });
 
-Route::get('/documents/{id}/edit', 'App\Http\Controllers\DocumentController@edit')->name('doctrack.edit');
-Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
-Route::put('/documents/{id}', 'App\Http\Controllers\DocumentController@update')->name('documents.update');
+Route::get('/user-management', [UserController::class, 'index'])->name('user.management');
 
-
+Route::resource('departments', DepartmentController::class);
 
 
 Route::get('/', function () {
@@ -37,7 +35,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');

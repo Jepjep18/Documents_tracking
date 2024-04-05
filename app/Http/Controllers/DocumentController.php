@@ -10,51 +10,70 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        // Retrieve documents belonging to the currently authenticated user
         $documents = Document::where('user_id', Auth::id())->get();
         
         return view('doctrack.index', compact('documents'));
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'department' => 'required', // Validate the department field
-        'personnel' => 'required',
-        'document' => 'required|file|max:10240', // Example: max 10MB file size
-    ]);
+    {
+        $request->validate([
+            'department' => 'required', 
+            'personnel' => 'required',
+            'document' => 'required|file|max:10240', 
+        ]);
 
-    // Store the file in 'public/upload' directory
-    $documentPath = $request->file('document')->store('upload', 'public');
+        $originalFilename = $request->file('document')->getClientOriginalName();
 
-    // Create a new Document instance
-    $document = new Document();
-    $document->department = $request->input('department');
-    $document->personnel = $request->input('personnel');
-    $document->document_path = $documentPath;
+        $documentPath = $request->file('document')->store('upload', 'public');
 
-    // Associate the document with the currently authenticated user
-    Auth::user()->documents()->save($document);
+        $document = new Document();
+        $document->department = $request->input('department');
+        $document->personnel = $request->input('personnel');
+        $document->file_name = $originalFilename; 
+        $document->user_id = Auth::id(); 
+        $document->save();
 
-    return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
-}
+        return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
+    }
 
-public function edit($id)
-{
-    // Fetch document data and pass it to the edit view
-    $document = Document::findOrFail($id);
-    return view('doctrack.edit', compact('document'));
-}
+    public function edit($id)
+    {
+        $document = Document::findOrFail($id);
+        return view('doctrack.edit', compact('document'));
+    }
 
+    public function destroy($id)
+    {
+        $document = Document::findOrFail($id);
+        $document->delete();
+        
+        return redirect()->route('doctrack.index')->with('success', 'Document deleted successfully');
+    }
 
-public function destroy($id)
-{
-    // Delete the document
-    $document = Document::findOrFail($id);
-    $document->delete();
-    
-    // Redirect back to index page with success message
-    return redirect()->route('doctrack.index')->with('success', 'Document deleted successfully');
-}
-    
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'department' => 'required',
+            'personnel' => 'required',
+            'document' => 'file|max:10240', 
+        ]);
+
+        $document = Document::findOrFail($id);
+
+        $document->department = $request->input('department');
+        $document->personnel = $request->input('personnel');
+
+        if ($request->hasFile('document')) {
+            $originalFilename = $request->file('document')->getClientOriginalName();
+
+            $newDocumentPath = $request->file('document')->store('upload', 'public');
+            $document->file_name = $originalFilename;
+            $document->document_path = $newDocumentPath;
+        }
+
+        $document->save();
+
+        return redirect()->route('doctrack.index')->with('success', 'Document updated successfully');
+    }
 }
