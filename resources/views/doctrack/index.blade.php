@@ -36,6 +36,7 @@
                                         <option value="Sir Jasper">Sir Jasper</option>
                                         <option value="Sir Vien">Sir Vien</option>
                                         <option value="Maam Lucky">Maam Lucky</option>
+                                        <option value="Maam Lucky">Maam Ver An</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
