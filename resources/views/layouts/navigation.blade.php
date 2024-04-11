@@ -117,18 +117,14 @@
     </div>
 </nav>
 
-<!-- JavaScript function to handle logout confirmation -->
 <script>
     function confirmLogout() {
-        // Display a confirmation dialog
         if (confirm('Are you sure you want to log out?')) {
-            // If user confirms, submit the logout form
             document.getElementById('logout-form').submit();
         }
     }
 </script>
 
-<!-- Hidden form to handle logout submission -->
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
