@@ -9,14 +9,16 @@
                         <img src="{{ asset('dict-logo.png') }}" alt="DICT Logo" class="block h-9 w-auto"/>
                     </a>
                 </div>
-
+@role('admin')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         <i class="fas fa-tachometer-alt mr-2"></i>
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+@endrole
+
 @role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('user.management') }}" :active="request()->routeIs('user.management')">
