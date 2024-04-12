@@ -13,25 +13,28 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <i class="fas fa-tachometer-alt mr-2"></i> 
+                        <i class="fas fa-tachometer-alt mr-2"></i>
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-
+@role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('user.management') }}" :active="request()->routeIs('user.management')">
-                        <i class="fas fa-user-cog mr-2"></i> 
+                        <i class="fas fa-user-cog mr-2"></i>
                         {{ __('User Management') }}
                     </x-nav-link>
                 </div>
-
+@endrole
+@role('user')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('doctrack.index') }}" :active="request()->routeIs('doctrack.index')">
-                        <i class="fas fa-file-alt mr-2"></i> 
+                        <i class="fas fa-file-alt mr-2"></i>
                         {{ __('Document Tracking') }}
                     </x-nav-link>
                 </div>
+@endrole
 
+@role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
                         <i class="fas fa-users mr-2"></i>
@@ -39,7 +42,7 @@
                     </x-nav-link>
                 </div>
             </div>
-
+@endrole
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
