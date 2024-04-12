@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-    <title>Documentation Tracking</title>
+    <title>Admin </title>
     <head>
-        <title>Documentation Tracking</title>
+        <title>Admin</title>
     </head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
@@ -37,7 +37,7 @@
             <main>
                 {{ $slot }}
             </main>
-            
+
         </div>
     </body>
 </html>
