@@ -12,7 +12,7 @@
                     <h3 class="text-lg font-semibold mb-4">{{ __("User Management") }}</h3>
 
                     <div class="flex justify-end mb-4">
-                        <a href="#" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
+                        <a href="{{ route('admin.users.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
                     </div>
 
                     <table class="min-w-full divide-y divide-gray-200">
@@ -20,31 +20,20 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Replace the dummy data with actual user data -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">John Doe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">john@example.com</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Admin</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="#" class="text-blue-500 hover:underline">Edit</a>
-                                    <a href="#" class="text-red-500 hover:underline ml-2">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Jane Smith</td>
-                                <td class="px-6 py-4 whitespace-nowrap">jane@example.com</td>
-                                <td class="px-6 py-4 whitespace-nowrap">User</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="#" class="text-blue-500 hover:underline">Edit</a>
-                                    <a href="#" class="text-red-500 hover:underline ml-2">Delete</a>
-                                </td>
-                            </tr>
-                            <!-- Add more rows for additional users -->
+                            @foreach ($users as $user)
+                                <tr class="border-b border-gray-200">
+                                    <td class="px-4 py-2">{{ $user->name }}</td>
+                                    <td class="px-4 py-2">{{ $user->email }}</td>
+                                    <td class="px-4 py-2">
+                                        <a href="#" class="text-blue-500 hover:underline">Edit</a>
+                                        <a href="#" class="text-red-500 hover:underline ml-2">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
