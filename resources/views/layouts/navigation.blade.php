@@ -9,25 +9,62 @@
                         <img src="{{ asset('dict-logo.png') }}" alt="DICT Logo" class="block h-9 w-auto"/>
                     </a>
                 </div>
-
+@role('admin')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <i class="fas fa-tachometer-alt mr-2"></i> <!-- Dashboard icon -->
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+@endrole
+@role('admin')
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.index')">
+                        <i class="fas fa-user-shield mr-2"></i>
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                </div>
+@endrole
+@role('admin')
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.index')">
+                        <i class="fas fa-lock mr-2"></i>
+                        {{ __('Permission') }}
+                    </x-nav-link>
+                </div>
+@endrole
 
+
+@role('admin')
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+        <i class="fas fa-lock mr-2"></i>
+        {{ __('Users') }}
+    </x-nav-link>
+</div>
+@endrole
+
+@role('user')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('doctrack.index') }}" :active="request()->routeIs('doctrack.index')">
-                        <i class="fas fa-file-alt mr-2"></i> <!-- Document Tracking icon -->
+                        <i class="fas fa-file-alt mr-2"></i>
                         {{ __('Document Tracking') }}
                     </x-nav-link>
                 </div>
+@endrole
 
-
+@role('admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
+                        <i class="fas fa-users mr-2"></i>
+                        {{ __('Manage Departments & Personnel') }}
+                    </x-nav-link>
+                </div>
             </div>
-
+@endrole
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -48,12 +85,11 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+                        <!-- Logout Form -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); confirmLogout();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -93,12 +129,11 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
+                <!-- Logout Form -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); confirmLogout();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
@@ -106,3 +141,15 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            document.getElementById('logout-form').submit();
+        }
+    }
+</script>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
