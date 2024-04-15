@@ -37,14 +37,16 @@
                 </div>
 @endrole
 
+
 @role('admin')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('user.management') }}" :active="request()->routeIs('user.management')">
-                        <i class="fas fa-user-cog mr-2"></i>
-                        {{ __('User Management') }}
-                    </x-nav-link>
-                </div>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+        <i class="fas fa-lock mr-2"></i>
+        {{ __('Users') }}
+    </x-nav-link>
+</div>
 @endrole
+
 @role('user')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('doctrack.index') }}" :active="request()->routeIs('doctrack.index')">
