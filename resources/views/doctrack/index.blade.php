@@ -2,7 +2,8 @@
     <div class="border border-gray-300 rounded-md p-4">
         <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
     </div>
-    <div class="container mx-auto">
+
+    <div class="container mx-auto mt-4">
         <div class="flex justify-center">
             <div class="w-full lg:w-10/12">
                 <div class="bg-white shadow-md rounded my-6">
@@ -28,7 +29,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Assigned Personnel</label>
+                                    <label for="personnel" class="block text-sm font-medium text-gray-700">Assigned Personnel</label>
                                     <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
                                         <option value="Accounting Building">Accounting Building</option>
                                         <option value="RD Evamay">RD Evamay</option>
@@ -36,7 +37,7 @@
                                         <option value="Sir Jasper">Sir Jasper</option>
                                         <option value="Sir Vien">Sir Vien</option>
                                         <option value="Maam Lucky">Maam Lucky</option>
-                                        <option value="Maam Lucky">Maam Ver An</option>
+                                        <option value="Maam Ver An">Maam Ver An</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
@@ -78,22 +79,17 @@
                                         @endif
                                     </td>
                                     <td class="py-2">
-    <a href="{{ asset('storage/upload/' . $document->document_path) }}" target="_blank" download>
-        {{ $document->file_name }}
-    </a>
-</td>
-
-
-
-
+                                        <a href="{{ asset('storage/upload/' . $document->document_path) }}" target="_blank" download>
+                                            {{ $document->file_name }}
+                                        </a>
+                                    </td>
                                     <td class="py-2">{{ $document->created_at }}</td>
                                     <td class="py-2 text-left"></td>
                                     <td class="py-2 text-left"></td>
                                     <td class="py-2 text-left"></td>
                                     <td class="py-2 text-left">
                                         <div style="display: flex; justify-content: center;">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button" id="editButton{{$document->id}}" onclick="location.href='{{ route('doctrack.edit', $document->id) }}'">Edit</button>
-
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button" id="editButton{{$document->id}}" onclick="location.href='{{ route('doctrack.edit', $document->id) }}'">Edit</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -105,8 +101,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -120,8 +114,7 @@
 
             closeModalButton.addEventListener('click', function() {
                 modal.classList.add('hidden');
-                });
             });
+        });
     </script>
-
 </x-app-layout>
