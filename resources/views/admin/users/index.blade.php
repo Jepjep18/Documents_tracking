@@ -42,7 +42,7 @@
                                                                 class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
                                                                 method="POST"
                                                                 action="{{ route('admin.users.destroy', $user->id) }}"
-                                                                onsubmit="return confirm('Are you sure?');">
+                                                                onsubmit="return confirm('Are you sure you want to delete this?');">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit">Delete</button>
