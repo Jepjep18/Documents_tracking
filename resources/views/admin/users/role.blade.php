@@ -17,7 +17,7 @@
                             @foreach ($user->roles as $user_role)
                                 <form class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md" method="POST"
                                     action="{{ route('admin.users.roles.remove', [$user->id, $user_role->id]) }}"
-                                    onsubmit="return confirm('Are you sure?');">
+                                    onsubmit="return confirm('Are you sure you want to delete this?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">{{ $user_role->name }}</button>
@@ -54,7 +54,7 @@
                             @foreach ($user->permissions as $user_permission)
                                 <form class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md" method="POST"
                                     action="{{ route('admin.users.permissions.revoke', [$user->id, $user_permission->id]) }}"
-                                    onsubmit="return confirm('Are you sure?');">
+                                    onsubmit="return confirm('Are you sure you want to delete this?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">{{ $user_permission->name }}</button>

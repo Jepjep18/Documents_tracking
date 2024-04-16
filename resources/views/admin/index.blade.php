@@ -12,8 +12,10 @@
                     <h3 class="text-lg font-semibold mb-4">{{ __("User Management") }}</h3>
 
                     <div class="flex justify-end mb-4">
-                        <a href="#" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
-                    </div>
+    <!-- Update the anchor tag to point to the create user route -->
+    <a href="{{ route('admin.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
+</div>
+
 
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">

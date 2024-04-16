@@ -39,7 +39,7 @@
                             @foreach ($permission->roles as $permission_role)
                                 <form class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md" method="POST"
                                     action="{{ route('admin.permissions.roles.remove', [$permission->id, $permission_role->id]) }}"
-                                    onsubmit="return confirm('Are you sure?');">
+                                    onsubmit="return confirm('Are you sure you want to delete this?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">{{ $permission_role->name }}</button>
