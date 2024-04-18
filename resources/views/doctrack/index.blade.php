@@ -54,6 +54,7 @@
                                     <th class="w-1/6 py-2 text-left">Department</th>
                                     <th class="w-1/6 py-2 text-left">Personnel</th>
                                     <th class="w-2/6 py-2 text-left">Uploaded Documents</th>
+                                    <th class="w-1/6 py-2 text-left">Created Date</th>
                                     <th class="w-1/6 py-2 text-left">Accept Date</th>
                                     <th class="w-2/6 py-2 text-left">Reuploaded Documents</th>
                                     <th class="w-1/6 py-2 text-left">Released Date</th>
@@ -69,7 +70,7 @@
                                     <td class="py-2">
                                         <a href="{{ asset('upload/' . $document->file_name) }}" download class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
                                     </td>
-                                    <td class="py-2"><!-- Accept Date Column --></td>
+                                    <td class="py-2">{{ $document->created_at }}</td>
                                     <td class="py-2"><!-- Reuploaded Documents Column --></td>
                                     <td class="py-2"><!-- Released Date Column --></td>
                                     <td class="py-2"><!-- Remarks Column --></td>
