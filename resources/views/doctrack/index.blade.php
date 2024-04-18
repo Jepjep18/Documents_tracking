@@ -71,7 +71,9 @@
                                 <tr>
                                     <td class="py-2">{{ $document->department }}</td>
                                     <td class="py-2">{{ $document->personnel }}</td>
-                                    <td class="py-2"><a href="{{ asset('upload/' . $document->file_name) }}" download>{{ $document->file_name }}</a></td>
+                                    <td class="py-2">
+                                        <a href="{{ asset('upload/' . $document->file_name) }}" download class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
+                                    </td>
                                     <td class="py-2"><!-- Accept Date Column --></td>
                                     <td class="py-2"><!-- Reuploaded Documents Column --></td>
                                     <td class="py-2"><!-- Released Date Column --></td>

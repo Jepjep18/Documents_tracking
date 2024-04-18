@@ -28,25 +28,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <!-- Replace the dummy data with actual user data -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">John Doe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">john@example.com</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Admin</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="#" class="text-blue-500 hover:underline">Edit</a>
-                                    <a href="#" class="text-red-500 hover:underline ml-2">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Jane Smith</td>
-                                <td class="px-6 py-4 whitespace-nowrap">jane@example.com</td>
-                                <td class="px-6 py-4 whitespace-nowrap">User</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="#" class="text-blue-500 hover:underline">Edit</a>
-                                    <a href="#" class="text-red-500 hover:underline ml-2">Delete</a>
-                                </td>
-                            </tr>
-                            <!-- Add more rows for additional users -->
+                            
                         </tbody>
                     </table>
 
