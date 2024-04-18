@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="py-8">
             <div class="flex justify-between items-center">
@@ -34,8 +34,9 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             @endif
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

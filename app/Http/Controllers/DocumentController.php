@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
+use App\Models\Department; // Import the Department model
 
 class DocumentController extends Controller
 {
     public function index()
     {
         $documents = Document::where('user_id', Auth::id())->get();
+        $departments = Department::all(); // Fetch all departments
         
-        return view('doctrack.index', compact('documents'));
+        return view('doctrack.index', compact('documents', 'departments'));
     }
 
     public function store(Request $request)
