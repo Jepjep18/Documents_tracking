@@ -37,6 +37,15 @@
                 </div>
 @endrole
 
+@role('admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
+                        <i class="fas fa-users mr-2"></i>
+                        {{ __('Manage Departments & Personnel') }}
+                    </x-nav-link>
+                </div>
+            </div>
+@endrole
 
 @role('admin')
 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -56,15 +65,6 @@
                 </div>
 @endrole
 
-@role('admin')
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
-                        <i class="fas fa-users mr-2"></i>
-                        {{ __('Manage Departments & Personnel') }}
-                    </x-nav-link>
-                </div>
-            </div>
-@endrole
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
