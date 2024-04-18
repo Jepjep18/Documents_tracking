@@ -16,26 +16,28 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'department' => 'required', 
-            'personnel' => 'required',
-            'document' => 'required|file|max:10240', 
-        ]);
+{
+    $request->validate([
+        'department' => 'required', 
+        'personnel' => 'required',
+        'document' => 'required|file|max:10240', 
+    ]);
 
-        $originalFilename = $request->file('document')->getClientOriginalName();
+    $originalFilename = $request->file('document')->getClientOriginalName();
 
-        $documentPath = $request->file('document')->store('upload', 'public');
+    // Store the file in the 'public/upload' directory with its original name
+    $documentPath = $request->file('document')->storeAs('upload', $originalFilename, 'public');
 
-        $document = new Document();
-        $document->department = $request->input('department');
-        $document->personnel = $request->input('personnel');
-        $document->file_name = $originalFilename; 
-        $document->user_id = Auth::id(); 
-        $document->save();
+    $document = new Document();
+    $document->department = $request->input('department');
+    $document->personnel = $request->input('personnel');
+    $document->file_name = $originalFilename; 
+    $document->user_id = Auth::id(); 
+    $document->save();
 
-        return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
-    }
+    return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
+}
+
 
     public function edit($id)
     {

@@ -9,7 +9,6 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/document-tracking', [DocumentController::class, 'index'])->name('doctrack.index');
     Route::post('/doctrack', [DocumentController::class, 'store'])->name('doctrack.store');
@@ -17,6 +16,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
     Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
 });
+
 
 
 
