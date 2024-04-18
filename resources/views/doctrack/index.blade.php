@@ -67,29 +67,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($documents as $document)
+                                @foreach ($documents as $document)
                                 <tr>
                                     <td class="py-2">{{ $document->department }}</td>
-                                    <td class="py-2">
-                                        @if(is_object($document->personnel))
-                                        {{ $document->personnel->name }}
-                                        @else
-                                        {{ $document->personnel }}
-                                        @endif
-                                    </td>
-                                    <td class="py-2">
-    <a href="{{ asset('storage/upload/' . $document->document_path) }}" target="_blank" download>
-        {{ $document->file_name }}
-    </a>
-</td>
-
-
-
-
-                                    <td class="py-2">{{ $document->created_at }}</td>
-                                    <td class="py-2 text-left"></td>
-                                    <td class="py-2 text-left"></td>
-                                    <td class="py-2 text-left"></td>
+                                    <td class="py-2">{{ $document->personnel }}</td>
+                                    <td class="py-2"><a href="{{ asset('upload/' . $document->file_name) }}" download>{{ $document->file_name }}</a></td>
+                                    <td class="py-2"><!-- Accept Date Column --></td>
+                                    <td class="py-2"><!-- Reuploaded Documents Column --></td>
+                                    <td class="py-2"><!-- Released Date Column --></td>
+                                    <td class="py-2"><!-- Remarks Column --></td>
                                     <td class="py-2 text-left">
                                         <div style="display: flex; justify-content: center;">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button" id="editButton{{$document->id}}" onclick="location.href='{{ route('doctrack.edit', $document->id) }}'">Edit</button>
@@ -105,8 +91,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    protected $fillable = ['department','personnel', 'document_path'];
+    protected $fillable = ['department','personnel', 'file_name'];
 }
