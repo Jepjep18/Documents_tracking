@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use App\Models\Department; // Import the Department model
+use Spatie\Permission\Models\Role;
+
 
 class DocumentController extends Controller
 {
@@ -13,8 +15,10 @@ class DocumentController extends Controller
     {
         $documents = Document::where('user_id', Auth::id())->get();
         $departments = Department::all(); // Fetch all departments
+        $personnelRole = Role::where('name', 'personnel')->first();
+        $personnelUsers = $personnelRole ? $personnelRole->users()->get() : [];
         
-        return view('doctrack.index', compact('documents', 'departments'));
+        return view('doctrack.index', compact('documents', 'departments', 'personnelUsers'));
     }
 
     public function store(Request $request)

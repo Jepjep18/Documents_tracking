@@ -18,23 +18,20 @@
                                 @csrf <!-- Add CSRF token -->
                                 <div class="mb-4">
                                 <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
-<select id="department" name="department" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-    <!-- Populate options with department data -->
-    @foreach($departments as $department)
-        <option value="{{ $department->name }}">{{ $department->name }}</option>
-    @endforeach
-</select>
+                                <select id="department" name="department" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                                    <!-- Populate options with department data -->
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department->name }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
                                 <div class="mb-4">
                                     <label for="personnel" class="block text-sm font-medium text-gray-700" placeholder="Select Personnel/Office">Assigned Personnel</label>
                                     <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                                        <option value="Accounting Building">Accounting Building</option>
-                                        <option value="RD Evamay">RD Evamay</option>
-                                        <option value="Engr Fuentes">Engr Fuentes</option>
-                                        <option value="Sir Jasper">Sir Jasper</option>
-                                        <option value="Sir Vien">Sir Vien</option>
-                                        <option value="Maam Lucky">Maam Lucky</option>
-                                        <option value="Maam Lucky">Maam Ver An</option>
+                                        <!-- Populate options with personnel users -->
+                                        @foreach($personnelUsers as $personnelUser)
+                                            <option value="{{ $personnelUser->name }}">{{ $personnelUser->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-4">
