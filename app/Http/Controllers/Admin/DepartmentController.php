@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; // Use the correct base controller
 use App\Models\Department;
+use App\Models\User;
 
 class DepartmentController extends Controller
 {
     public function index()
     {
         $departments = Department::all();
-        return view('departments.index', compact('departments'));
+        return view('admin.departments.index', compact('departments'));
     }
 
     public function create()
     {
-        return view('departments.create');
+        return view('admin.departments.create'); // Use the correct view path
     }
 
     public function store(Request $request)
@@ -30,7 +32,7 @@ class DepartmentController extends Controller
                          ->with('success','Department created successfully.');
     }
 
-/**
+    /**
      * Remove the specified department from storage.
      *
      * @param  \App\Models\Department  $department
@@ -44,7 +46,7 @@ class DepartmentController extends Controller
             ->with('success', 'Department deleted successfully.');
     }
 
-     /**
+    /**
      * Show the form for editing the specified department.
      *
      * @param  \App\Models\Department  $department
@@ -52,7 +54,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('departments.edit', compact('department'));
+        return view('admin.departments.edit', compact('department')); // Use the correct view path
     }
 
     /**
@@ -73,5 +75,4 @@ class DepartmentController extends Controller
         return redirect()->route('departments.index')
             ->with('success', 'Department updated successfully.');
     }
-
 }

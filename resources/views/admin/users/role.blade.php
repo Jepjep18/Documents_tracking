@@ -86,6 +86,50 @@
                     </form>
 
                 </div>
+
+                <div class="mt-6 p-2 bg-slate-100">
+                    <h2 class="text-2xl font-semibold">Department</h2>
+                    <div class="flex space-x-2 mt-4 p-2">
+                        @if ($user->department)
+                            <div class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">
+                                {{ $user->department->name }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="max-w-xl mt-6">
+
+
+                        <form method="POST" action="{{ route('admin.users.departments', $user->id) }}">
+                            <!-- Form fields -->
+                            @csrf
+                            <div class="sm:col-span-6">
+                                <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                                <select id="department" name="department" autocomplete="department-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="">Select a department</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('department')
+                                <span class="text-red-400 text-sm">{{ $message }}</span>
+                            @enderror
+                            <div class="sm:col-span-6 pt-5">
+                                <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Assign</button>
+                            </div>
+                        </form>
+
+                        <form method="POST" action="{{ route('admin.users.remove.department', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Remove Department
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
             </div>
 
         </div>

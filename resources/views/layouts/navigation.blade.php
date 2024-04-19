@@ -39,7 +39,7 @@
 
 @role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('departments.index')">
+                    <x-nav-link href="{{ route('departments.index') }}" :active="request()->routeIs('admin.departments.index')">
                         <i class="fas fa-users mr-2"></i>
                         {{ __('Manage Departments & Personnel') }}
                     </x-nav-link>

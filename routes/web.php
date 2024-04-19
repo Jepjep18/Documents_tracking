@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 
@@ -52,6 +52,10 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
      // Update the route for creating a user
      Route::get('/create', [UserController::class, 'create'])->name('create');
      Route::post('/users', [UserController::class, 'store'])->name('users.store');
+     Route::post('/{user}/assign-department', [UserController::class, 'assignDepartment'])->name('users.departments');
+    Route::delete('/{user}/remove-department', [UserController::class, 'removeDepartment'])->name('users.remove.department');
+
+
 });
 
 Route::get('/personnel', function () {
