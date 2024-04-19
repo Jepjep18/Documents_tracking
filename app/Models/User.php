@@ -50,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+
+   // app/Models/User.php
+
+public function department()
+{
+    return $this->belongsTo(Department::class);
+}
 }

@@ -5,7 +5,8 @@
                 <div class="flex flex-col">
                     <!-- Move the Create User button outside of the table -->
                     <div class="flex justify-end mb-4">
-                        <a href="{{ route('admin.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
+                        <a href="{{ route('admin.create') }}"
+                            class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Create User</a>
                     </div>
 
                     <!-- Table -->
@@ -21,6 +22,12 @@
                                             <th scope="col"
                                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Email</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Role</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Department</th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Edit</span>
                                             </th>
@@ -39,16 +46,23 @@
                                                         {{ $user->email }}
                                                     </div>
                                                 </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        @foreach ($user->roles as $role)
+                                                            <span class="px-2 py-1 bg-gray-200 rounded-md mr-2">{{ $role->name }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        {{ $user->department->name ?? 'N/A' }}
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div class="flex justify-end">
                                                         <div class="flex space-x-2">
-                                                            <a href="{{ route('admin.users.show', $user->id) }}"
-                                                                class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">Roles</a>
-                                                            <form
-                                                                class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
-                                                                method="POST"
-                                                                action="{{ route('admin.users.destroy', $user->id) }}"
-                                                                onsubmit="return confirm('Are you sure you want to delete this?');">
+                                                            <a href="{{ route('admin.users.show', $user->id) }}" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">Roles</a>
+                                                            <form class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md" method="POST" action="{{ route('admin.users.destroy', $user->id) }}" onsubmit="return confirm('Are you sure you want to delete this?');">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit">Delete</button>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\Department;
 
 class UserController extends Controller
 {
@@ -18,12 +19,13 @@ class UserController extends Controller
     }
 
     public function show(User $user)
-    {
-        $roles = Role::all();
-        $permissions = Permission::all();
+{
+    $roles = Role::all();
+    $permissions = Permission::all();
+    $departments = Department::all(); // Fetch all departments
 
-        return view('admin.users.role', compact('user', 'roles', 'permissions'));
-    }
+    return view('admin.users.role', compact('user', 'roles', 'permissions', 'departments'));
+}
 
     public function assignRole(Request $request, User $user)
     {
@@ -95,4 +97,24 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
+
+    public function assignDepartment(Request $request, User $user)
+    {
+        $request->validate([
+            'department' => 'required|exists:departments,id',
+        ]);
+
+        $user->department()->associate($request->department);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Department assigned successfully.');
+    }
+    
+    public function removeDepartment(User $user)
+{
+    $user->department()->dissociate();
+    $user->save();
+
+    return redirect()->back()->with('success', 'Department removed successfully.');
+}
 }
