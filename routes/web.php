@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\DocumentTrackingController;
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/document-tracking', [DocumentController::class, 'index'])->name('doctrack.index');
@@ -61,6 +63,10 @@ Route::get('/personnel', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'role:user'])->name('dashboard');
+
+//personnel
+Route::get('/document', [DocumentTrackingController::class, 'index'])->name('personnel.document');
+
 
 
 require __DIR__.'/auth.php';
