@@ -15,6 +15,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('doctrack.edit');
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
     Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
+    Route::get('/get-personnel/{department}', [DocumentController::class, 'getPersonnel'])->name('get.personnel');
+
 });
 
 
