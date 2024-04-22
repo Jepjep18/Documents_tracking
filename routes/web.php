@@ -66,6 +66,9 @@ Route::get('/dashboard', function () {
 
 //personnel
 Route::get('/document', [DocumentTrackingController::class, 'index'])->name('personnel.document');
+Route::get('/document/download/{file}', [DocumentTrackingController::class, 'download'])->name('document.download');
+Route::post('/document/upload', [DocumentTrackingController::class, 'upload'])->name('document.upload');
+
 
 
 

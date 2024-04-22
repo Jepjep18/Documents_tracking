@@ -16,6 +16,7 @@ class CreateDocumentsTable extends Migration
             $table->string('file_name');
             $table->timestamps();
 
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // Assuming 'users' is the name of your users table. Change it if your table name is different.
         });
