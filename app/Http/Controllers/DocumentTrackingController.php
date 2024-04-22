@@ -32,32 +32,35 @@ class DocumentTrackingController extends Controller
 
     public function upload(Request $request)
 {
-    // Validate the request
     $request->validate([
-        'file' => 'required|mimes:pdf,doc,docx|max:2048', // Add appropriate validation rules
+        'file' => 'required|mimes:pdf,doc,docx|max:2048',
     ]);
 
-    // Get the file
     $file = $request->file('file');
-
-    // Get the original file name
     $fileName = $file->getClientOriginalName();
-
-    // Move the uploaded file to the desired location
     $file->move(public_path('upload'), $fileName);
 
-    // Create a new acceptance record
-    $acceptance = new DocumentAcceptance();
-    $acceptance->user_id = Auth::id();
-    $acceptance->accepted_at = now();
-    $acceptance->reuploaded_file_name = $fileName; // Store the reuploaded file name
-    $acceptance->save();
+    // Get the latest acceptance record for the current user
+    $latestAcceptance = DocumentAcceptance::where('user_id', Auth::id())->latest()->first();
 
-    // Redirect back or return a response
+    if ($latestAcceptance) {
+        // If there's an existing acceptance record, update the reuploaded file name
+        $latestAcceptance->update(['reuploaded_file_name' => $fileName]);
+    } else {
+        // If no acceptance record exists, create a new one
+        $acceptance = new DocumentAcceptance();
+        $acceptance->user_id = Auth::id();
+        $acceptance->accepted_at = now();
+        $acceptance->reuploaded_file_name = $fileName;
+        $acceptance->save();
+    }
+
     return redirect()->back()->with('success', 'File uploaded successfully.');
 }
 
-    
+
+
+
 
 
 }

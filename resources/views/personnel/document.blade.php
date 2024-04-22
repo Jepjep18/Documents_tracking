@@ -1,15 +1,12 @@
 <x-app-layout>
     <div id="reuploadModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
-        <!-- Modal Content -->
         <div class="bg-white p-8 rounded shadow-lg w-1/2">
             <h2 class="text-xl font-semibold mb-4">Re-upload Documents</h2>
-            <!-- Upload file button -->
             <form action="{{ route('document.upload') }}" method="POST" enctype="multipart/form-data" class="mb-4">
                 @csrf
                 <input type="file" name="file" class="border border-gray-300 p-2 w-full">
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded mt-2 hover:bg-blue-600">Upload</button>
             </form>
-            <!-- Close Button -->
             <button id="closeModalButton" class="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400">Close</button>
         </div>
     </div>
@@ -34,6 +31,7 @@
                                     <th class="w-1/6 py-2 text-left">Created Date</th>
                                     <th class="w-1/6 py-2 text-left">Accept Date</th>
                                     <th class="w-1/6 py-2 text-left">Re-uploaded Files</th>
+                                    <th class="w-1/6 py-2 text-left">Release Date</th>
                                     <th class="w-1/6 py-2 text-left">Remarks</th>
                                     <th class="w-1/6 py-2 text-left">Actions</th>
                                 </tr>
@@ -43,7 +41,7 @@
                                     <tr>
                                         <td class="py-2 text-left">{{ $document->user->name }}</td>
                                         <td class="py-2 text-left">
-                                            <a href="{{ route('document.download', $document->file_name) }}" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
+                                            <a href="{{ route('document.download', ['file' => $document->file_name]) }}" class="text-blue-600 hover:text-blue-800 font-semibold download-link" data-file="{{ $document->file_name }}">{{ $document->file_name }}</a>
                                         </td>
                                         <td class="py-2 text-left">{{ $document->created_at }}</td>
                                         <td class="py-2 text-left">
@@ -55,11 +53,12 @@
                                         </td>
                                         <td class="py-2 text-left">
                                             @if ($document->acceptance && $document->acceptance->reuploaded_file_name)
-                                                <a href="{{ route('document.download', $document->acceptance->reuploaded_file_name) }}" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->acceptance->reuploaded_file_name }}</a>
+                                                <a href="{{ route('document.download', ['file' => $document->acceptance->reuploaded_file_name]) }}" class="text-blue-600 hover:text-blue-800 font-semibold download-link" data-file="{{ $document->acceptance->reuploaded_file_name }}">{{ $document->acceptance->reuploaded_file_name }}</a>
                                             @else
                                                 No Re-uploaded File
                                             @endif
                                         </td>
+                                        <td class="py-2 text-left">{{ $document->acceptance ? $document->acceptance->updated_at : 'Not Released Yet' }}</td>
                                         <td class="py-2 text-left"><!-- Remarks Column --></td>
                                         <td class="py-2 text-left"><!-- Actions Column --></td>
                                     </tr>
@@ -73,14 +72,23 @@
     </div>
 
     <script>
-        // Open Modal Button Click Event
         document.getElementById('openModalButton').addEventListener('click', function() {
             document.getElementById('reuploadModal').classList.remove('hidden');
         });
 
-        // Close Modal Button Click Event
         document.getElementById('closeModalButton').addEventListener('click', function() {
             document.getElementById('reuploadModal').classList.add('hidden');
+        });
+
+        const downloadLinks = document.querySelectorAll('.download-link');
+        downloadLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                const file = event.target.dataset.file;
+                const confirmation = confirm("Do you want to Accept and Download the File?");
+                if (!confirmation) {
+                    event.preventDefault(); 
+                }
+            });
         });
     </script>
 </x-app-layout>

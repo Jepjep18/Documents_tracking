@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use App\Models\Department; // Import the Department model
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class DocumentController extends Controller
@@ -83,5 +85,20 @@ class DocumentController extends Controller
         $document->save();
 
         return redirect()->route('doctrack.index')->with('success', 'Document updated successfully');
+    }
+
+    public function downloadReupload($file)
+    {
+        // Get the path of the reuploaded file
+        $filePath = public_path('upload/' . $file);
+
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            // Return the file for download
+            return response()->download($filePath);
+        } else {
+            // File not found, redirect back with error message
+            return redirect()->back()->with('error', 'File not found.');
+        }
     }
 }
