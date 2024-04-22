@@ -14,19 +14,25 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::where('user_id', Auth::id())->get();
-        $departments = Department::all(); // Fetch all departments
+
+        // Load the user with the department information
+        $documents->load('user.department');
+
+        $departments = Department::all();
         $personnelRole = Role::where('name', 'personnel')->first();
         $personnelUsers = $personnelRole ? $personnelRole->users()->get() : [];
-        
+
         return view('doctrack.index', compact('documents', 'departments', 'personnelUsers'));
     }
+
+
 
     public function store(Request $request)
 {
     $request->validate([
-        'department' => 'required', 
+        'department' => 'required',
         'personnel' => 'required',
-        'document' => 'required|file|max:10240', 
+        'document' => 'required|file|max:10240',
     ]);
 
     $originalFilename = $request->file('document')->getClientOriginalName();
@@ -35,13 +41,14 @@ class DocumentController extends Controller
     $documentPath = $request->file('document')->storeAs('upload', $originalFilename, 'public');
 
     $document = new Document();
+
     $document->department = $request->input('department');
     $document->personnel = $request->input('personnel');
-    $document->file_name = $originalFilename; 
-    $document->user_id = Auth::id(); 
+    $document->file_name = $originalFilename;
+    $document->user_id = Auth::id();
     $document->save();
 
-    return redirect()->route('doctrack.index')->with('success', 'Document created successfully!');
+    return redirect()->route('doctrack.index')->with('message', 'Document created successfully!');
 }
 
 
@@ -55,7 +62,7 @@ class DocumentController extends Controller
     {
         $document = Document::findOrFail($id);
         $document->delete();
-        
+
         return redirect()->route('doctrack.index')->with('success', 'Document deleted successfully');
     }
 
@@ -64,7 +71,7 @@ class DocumentController extends Controller
         $request->validate([
             'department' => 'required',
             'personnel' => 'required',
-            'document' => 'file|max:10240', 
+            'document' => 'file|max:10240',
         ]);
 
         $document = Document::findOrFail($id);
@@ -84,4 +91,12 @@ class DocumentController extends Controller
 
         return redirect()->route('doctrack.index')->with('success', 'Document updated successfully');
     }
+
+    public function getPersonnel($departmentId)
+{
+    $department = Department::find($departmentId);
+    $personnel = $department->users()->pluck('name', 'id')->toArray();
+    return response()->json($personnel);
+}
+
 }
