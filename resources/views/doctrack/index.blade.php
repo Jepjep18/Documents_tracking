@@ -102,7 +102,10 @@
                                         <td class="py-2"><!-- Reuploaded Documents Column --></td>
                                         <td class="py-2"><!-- Released Date Column --></td>
                                         <td class="py-2"><!-- Remarks Column --></td>
+                                        <td class="py-2"><!-- Remarks Column --></td>
+
                                         <td class="py-2 text-left">
+
                                             <div style="display: flex; justify-content: center;">
                                                 <button
                                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-button"
