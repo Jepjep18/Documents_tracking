@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\DocumentTrackingController;
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/document-tracking', [DocumentController::class, 'index'])->name('doctrack.index');
@@ -15,7 +17,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('doctrack.edit');
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
     Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
-    Route::get('/get-personnel/{department}', [DocumentController::class, 'getPersonnel'])->name('get.personnel');
+    Route::get('/download/reupload/{file}', [DocumentController::class, 'downloadReupload'])->name('download.reupload');
 
 });
 
@@ -54,10 +56,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
      // Update the route for creating a user
      Route::get('/create', [UserController::class, 'create'])->name('create');
      Route::post('/users', [UserController::class, 'store'])->name('users.store');
-     Route::post('/{user}/assign-department', [UserController::class, 'assignDepartment'])->name('users.departments');
-    Route::delete('/{user}/remove-department', [UserController::class, 'removeDepartment'])->name('users.remove.department');
-
-
 });
 
 Route::get('/personnel', function () {
@@ -68,6 +66,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'role:user'])->name('dashboard');
 
+//personnel
+Route::get('/document', [DocumentTrackingController::class, 'index'])->name('personnel.document');
+Route::get('/document/download/{file}', [DocumentTrackingController::class, 'download'])->name('document.download');
+Route::post('/document/upload', [DocumentTrackingController::class, 'upload'])->name('document.upload');
+
+
+
 
 require __DIR__.'/auth.php';
-

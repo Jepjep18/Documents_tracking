@@ -9,14 +9,13 @@ class Document extends Model
 {
     protected $fillable = ['department','personnel', 'file_name'];
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
     public function user()
     {
-        return $this->belongsTo(User::class, 'personnel');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function acceptance()
+    {
+        return $this->hasOne(DocumentAcceptance::class);
+    }
 }
