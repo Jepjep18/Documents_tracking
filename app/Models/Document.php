@@ -19,4 +19,8 @@ class Document extends Model
         return $this->belongsTo(User::class, 'personnel');
     }
 
+    public function acceptance()
+    {
+        return $this->hasOne(DocumentAcceptance::class);
+    }
 }
