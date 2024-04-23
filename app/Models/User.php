@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,10 +52,34 @@ class User extends Authenticatable
         return $this->hasMany(Document::class);
     }
 
-   // app/Models/User.php
+    // app/Models/User.php
 
-public function department()
-{
-    return $this->belongsTo(Department::class);
-}
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Check if the user has a certain role or roles.
+     *
+     * @param string|array $roles
+     * @return bool
+     */
+    public function hasRole($roles): bool
+    {
+        // Convert $roles to an array if it's not already one
+        $roles = is_array($roles) ? $roles : [$roles];
+
+        // Check if the user has any of the specified roles
+        return $this->roles()->whereIn('name', $roles)->exists();
+    }
+
+
+    /**
+     * Define the relationship between User and Role models.
+     */
+    public function roles()
+    {
+        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
+    }
 }

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink- flex items-center mr-4"> <!-- Adjusted margin -->
-                    <a href="{{ route('dashboard') }}">
+                    <a href="#">
                         <img src="{{ asset('dict-logo.png') }}" alt="DICT Logo" class="block h-9 w-auto"/>
                     </a>
                 </div>

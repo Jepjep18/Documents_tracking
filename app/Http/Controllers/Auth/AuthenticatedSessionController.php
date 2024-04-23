@@ -29,7 +29,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = $request->user();
+
+        // Check if the user has the 'admin' role
+        if ($user->hasRole('admin')) {
+            return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
+        }
+
+        // Check if the user has the 'user' role
+        if ($user->hasRole('user')) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        // Check if the user has the 'personnel' role
+        if ($user->hasRole(['personnel', 'another_role'])) {
+            return redirect()->route('personnel.index');
+        }
+
+        // If the user doesn't have any of the above roles, you can redirect them to a default page
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**

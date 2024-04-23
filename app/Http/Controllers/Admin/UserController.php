@@ -109,7 +109,7 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Department assigned successfully.');
     }
-    
+
     public function removeDepartment(User $user)
 {
     $user->department()->dissociate();
