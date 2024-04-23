@@ -42,6 +42,7 @@
                                 @foreach ($documents as $document)
                                     <tr>
                                         <td class="py-2 text-left">{{ $document->user->name }}</td>
+
                                         <td class="py-2 text-left">
                                             <a href="{{ route('document.download', $document->file_name) }}" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
                                         </td>
