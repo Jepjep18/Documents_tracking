@@ -59,8 +59,10 @@
                                             @endif
                                         </td>
                                         <td class="py-2 text-left">{{ $document->acceptance ? $document->acceptance->updated_at : 'Not Released Yet' }}</td>
-                                        <td class="py-2 text-left"><!-- Remarks Column --></td>
-                                        <td class="py-2 text-left"><!-- Actions Column --></td>
+                                        <td class="py-2 text-left"></td>
+
+                                        <td class="py-2 text-left"></td>
+                                        <td class="py-2 text-left"></td>
                                     </tr>
                                 @endforeach
                             </tbody>
