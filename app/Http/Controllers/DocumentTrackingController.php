@@ -16,30 +16,53 @@ class DocumentTrackingController extends Controller
     }
 
     public function download($file)
-    {
-        $filePath = public_path('upload/' . $file);
-        return response()->download($filePath);
+{
+    $filePath = public_path('upload/' . $file);
+    
+    // Update the acceptance date when the file is downloaded
+    $document = Document::where('file_name', $file)->first();
+    if ($document) {
+        // Get the authenticated user ID
+        $userId = Auth::id();
+
+        // Associate the acceptance record with the user ID
+        $document->acceptance()->updateOrCreate(
+            ['file_name' => $file],
+            [
+                'accepted_at' => now(),
+                'user_id' => $userId, // Associate the acceptance with the user
+            ]
+        );
     }
 
-    public function upload(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file|max:10240', // Adjust the max file size as needed
-        ]);
+    return response()->download($filePath);
+}
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('upload'), $fileName);
 
-            // Create or update the document record
-            $document = new Document();
-            $document->department = ''; // Add department data if available
-            $document->personnel = Auth::user()->name; // Associate with the logged-in user
-            $document->file_name = $fileName;
-            $document->save();
+public function upload(Request $request)
+{
+    $request->validate([
+        'file' => 'required|file|max:10240', // Adjust the max file size as needed
+    ]);
+
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('upload'), $fileName);
+
+        // Find the document acceptance record by original file name
+        $documentAcceptance = DocumentAcceptance::where('file_name', $fileName)->first();
+
+        if ($documentAcceptance) {
+            // Update the reuploaded file name
+            $documentAcceptance->update([
+                'reuploaded_file_name' => $fileName,
+            ]);
         }
-
-        return back(); // Redirect back to the page
     }
+
+    return back(); // Redirect back to the page
+}
+
+
 }
