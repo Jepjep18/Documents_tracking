@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller; // Use the correct base controller
-use App\Models\Department;
 use App\Models\User;
+use App\Models\Department;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller; // Use the correct base controller
 
 class DepartmentController extends Controller
 {
     public function index()
     {
         $departments = Department::all();
-        return view('admin.departments.index', compact('departments'));
+        $roles = Role::whereNotIn('name', ['admin'])->get();
+        return view('admin.index', compact('roles', 'departments'));
     }
 
     public function create()
