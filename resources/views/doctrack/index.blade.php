@@ -1,4 +1,5 @@
 <x-app-layout>
+    
     <div class="border border-gray-300 rounded-md p-4">
         <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
     </div>
@@ -106,6 +107,8 @@
             <button id="closeModalButton" class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded">Close</button>
         </div>
     </div>
+
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

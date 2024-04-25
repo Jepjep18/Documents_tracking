@@ -19,18 +19,15 @@ class DocumentTrackingController extends Controller
 {
     $filePath = public_path('upload/' . $file);
     
-    // Update the acceptance date when the file is downloaded
     $document = Document::where('file_name', $file)->first();
     if ($document) {
-        // Get the authenticated user ID
         $userId = Auth::id();
 
-        // Associate the acceptance record with the user ID
         $document->acceptance()->updateOrCreate(
             ['file_name' => $file],
             [
                 'accepted_at' => now(),
-                'user_id' => $userId, // Associate the acceptance with the user
+                'user_id' => $userId, 
             ]
         );
     }
@@ -42,7 +39,7 @@ class DocumentTrackingController extends Controller
 public function upload(Request $request)
 {
     $request->validate([
-        'file' => 'required|file|max:10240', // Adjust the max file size as needed
+        'file' => 'required|file|max:10240', 
     ]);
 
     if ($request->hasFile('file')) {
@@ -50,19 +47,29 @@ public function upload(Request $request)
         $fileName = time() . '_' . $file->getClientOriginalName();
         $file->move(public_path('upload'), $fileName);
 
-        // Find the document acceptance record by original file name
-        $documentAcceptance = DocumentAcceptance::where('file_name', $fileName)->first();
+        $userId = Auth::id();
+
+        // Check if there's an existing acceptance record for the user
+        $documentAcceptance = DocumentAcceptance::where('user_id', $userId)->latest()->first();
 
         if ($documentAcceptance) {
-            // Update the reuploaded file name
+            // If an acceptance record exists, update the reuploaded file name
             $documentAcceptance->update([
                 'reuploaded_file_name' => $fileName,
             ]);
+        } else {
+            // If no acceptance record exists, create a new one
+            $newAcceptance = new DocumentAcceptance();
+            $newAcceptance->user_id = $userId;
+            $newAcceptance->reuploaded_file_name = $fileName;
+            $newAcceptance->accepted_at = now();
+            $newAcceptance->save();
         }
     }
 
-    return back(); // Redirect back to the page
+    return back()->with('success', 'File uploaded successfully.'); // Redirect back to the page
 }
+
 
 
 }

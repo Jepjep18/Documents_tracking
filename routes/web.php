@@ -19,6 +19,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
     Route::get('/get-personnel/{department}', [DocumentController::class, 'getPersonnel'])->name('get.personnel');
     Route::get('/download/reupload/{file}', [DocumentController::class, 'downloadReupload'])->name('download.reupload');
+    Route::get('/get-users-by-department/{departmentId}', [DocumentController::class, 'getUsersByDepartment']);
+
 });
 
 
