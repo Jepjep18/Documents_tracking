@@ -40,7 +40,7 @@
                                     </td>
                                     <td class="py-2">
                                         @if ($document->acceptance && $document->acceptance->reuploaded_file_name)
-                                            <a href="{{ route('download.reupload', ['file' => $document->acceptance->reuploaded_file_name]) }}" class="text-blue-600 hover:text-blue-800 font-semibold download-link" download>{{ $document->acceptance->reuploaded_file_name }}</a>
+                                            <a href="{{ route('download.reupload', ['file' => $document->acceptance->reuploaded_file_name]) }}" class="text-green-600 hover:text-blue-800 font-semibold download-link" download>{{ $document->acceptance->reuploaded_file_name }}</a>
                                         @else
                                             <span class="@if (!$document->acceptance || !$document->acceptance->reuploaded_file_name) text-red-500 @endif">No Reuploaded File</span>
                                         @endif
@@ -76,54 +76,67 @@
         <div class="bg-white p-8 rounded shadow-md w-full md:w-1/2">
             <!-- Modal Content -->
             <h2 class="text-lg font-semibold mb-4">Create Documents</h2>
-            <form action="{{ route('doctrack.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf <!-- Add CSRF token -->
-                <div class="mb-4">
-                    <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
-                    <select id="department" name="department" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                        <!-- Populate options with department data -->
-                        @foreach($departments as $department)
-                        <option value="{{ $department->name }}">{{ $department->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="personnel" class="block text-sm font-medium text-gray-700">Assigned Personnel</label>
-                    <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                        <!-- Populate options with personnel users -->
-                        @foreach($personnelUsers as $personnelUser)
-                        <option value="{{ $personnelUser->name }}">{{ $personnelUser->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="document" class="block text-sm font-medium text-gray-700">Upload Document</label>
-                    <input type="file" id="document" name="document" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
-                </div>
-                <div class="mb-4">
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Submit</button>
-                </div>
-            </form>
+                <form action="{{ route('doctrack.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf <!-- Add CSRF token -->
+                    <div class="mb-4">
+                        <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
+                        <select id="department" name="department" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                            <!-- Populate options with department data -->
+                            @foreach($departments as $department)
+                            <option value="{{ $department->name }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="personnel" class="block text-sm font-medium text-gray-700">Assigned Personnel</label>
+                        <select id="personnel" name="personnel" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                            <!-- Populate options with personnel users -->
+                            @foreach($personnelUsers as $personnelUser)
+                            <option value="{{ $personnelUser->name }}">{{ $personnelUser->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div id="document-container">
+                        <div class="mb-4 document-row">
+                            <label for="document[]" class="block text-sm font-medium text-gray-700">Upload Document</label>
+                            <input type="file" id="document[]" name="document[]" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <button type="button" id="add-document" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Add Another Document</button>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Submit</button>
+                    </div>
+                </form>
             <button id="closeModalButton" class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded">Close</button>
         </div>
     </div>
 
-    
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const openModalButton = document.getElementById('openModalButton');
-            const closeModalButton = document.getElementById('closeModalButton');
-            const modal = document.getElementById('modal');
-
-            openModalButton.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-            });
-
-            closeModalButton.addEventListener('click', function() {
-                modal.classList.add('hidden');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#add-document').click(function() {
+                    $('#document-container').append('<div class="mb-4 document-row"><label for="document[]" class="block text-sm font-medium text-gray-700">Upload Document</label><input type="file" id="document[]" name="document[]" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md"></div>');
                 });
             });
-    </script>
+        </script>
+    
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const openModalButton = document.getElementById('openModalButton');
+                const closeModalButton = document.getElementById('closeModalButton');
+                const modal = document.getElementById('modal');
+
+                openModalButton.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                });
+
+                closeModalButton.addEventListener('click', function() {
+                    modal.classList.add('hidden');
+                    });
+                });
+        </script>
 
 </x-app-layout>
