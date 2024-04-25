@@ -27,15 +27,7 @@
                     </x-nav-link>
                 </div>
 @endrole
-@role('admin')
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.permissions.index')" :active="request()->routeIs('admin.permissions.index')">
-                        <i class="fas fa-lock mr-2"></i>
-                        {{ __('Permission') }}
-                    </x-nav-link>
-                </div>
-@endrole
+
 
 @role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
