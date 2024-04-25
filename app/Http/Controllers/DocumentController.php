@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use App\Models\Department; // Import the Department model
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 
 class DocumentController extends Controller
@@ -52,11 +53,14 @@ class DocumentController extends Controller
 }
 
 
-    public function edit($id)
-    {
-        $document = Document::findOrFail($id);
-        return view('doctrack.edit', compact('document'));
-    }
+public function edit($id)
+{
+    $document = Document::findOrFail($id);
+    $departments = Department::all(); 
+    $personnel = User::role('personnel')->get(); 
+    return view('doctrack.edit', compact('document', 'departments', 'personnel'));
+}
+
 
     public function destroy($id)
     {
