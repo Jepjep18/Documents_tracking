@@ -21,23 +21,46 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+        <div class="flex h-screen">
+            <!-- Sidebar -->
+            <aside class="bg-blue-400 text-gray-200 w-64">
+                <div class="p-4 border-b border-white-700">
+                    <img src="{{ asset('dict-logo.png') }}" alt="DICT Logo" class="h-9 w-auto mx-auto">
+                </div>
+                <nav class="mt-4">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+                 <a href="{{ route('doctrack.index') }}"
+                    class="flex items-center text-sm py-2 px-4
+                           {{ request()->routeIs('doctrack.index') ? 'bg-gray-700 text-white' : 'text-gray-200' }}
+                           hover:bg-gray-700">
+                     <i class="fas fa-file-alt mr-2"></i> <!-- Document Tracking Icon -->
+                     Document Tracking
+                 </a>
+                 
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf <!-- CSRF Protection -->
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();"
+           class="flex items-center text-sm py-2 px-4 hover:bg-gray-700">
+            <i class="fas fa-sign-out-alt mr-2"></i> <!-- Logout Icon -->
+            Logout
+        </a>
+
+                </nav>
+
+            </aside>
 
             <!-- Page Content -->
-            <main>
+            <main class="bg-white flex-1 p-4">
                 {{ $slot }}
             </main>
-            
         </div>
+        <script>
+            function confirmLogout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    document.getElementById('logoutForm').submit(); // Submit the hidden form
+                }
+            }
+        </script>
     </body>
 </html>
