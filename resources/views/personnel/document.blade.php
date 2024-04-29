@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-personnel-layout>
     <div id="reuploadModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
         <!-- Modal Content -->
         <div class="bg-white p-8 rounded shadow-lg w-1/2">
@@ -17,7 +17,7 @@
     <div class="border border-gray-300 rounded-md p-4">
         <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Re-upload Documents</button>
     </div>
-    
+
     <div class="container mx-auto">
         <div class="flex justify-center">
             <div class="w-full lg:w-10/12">
@@ -84,4 +84,4 @@
             document.getElementById('reuploadModal').classList.add('hidden');
         });
     </script>
-</x-app-layout>
+</x-personnel-layout>

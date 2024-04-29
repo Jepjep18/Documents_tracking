@@ -8,7 +8,7 @@
         <title>Admin</title>
     </head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,66 +59,126 @@
             </div>
         </div>
     @endif
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <aside class="bg-blue-400 text-gray-200 w-64">
-            <div class="p-4 border-b border-white-700">
-                <img src="{{ asset('dict-logo.png') }}" alt="DICT Logo" class="h-9 w-auto mx-auto">
+
+
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center justify-start rtl:justify-end">
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                        aria-controls="logo-sidebar" type="button"
+                        class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                            </path>
+                        </svg>
+                    </button>
+                    <a href="#" class="flex ms-2 md:me-24">
+                        <img src="{{ asset('dict-logo.png') }}" class="h-8 me-3" alt="DICT Logo" />
+                        <span
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Document
+                            Tracking ADMIN</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex items-center ms-3">
+                        <div>
+                            <button type="button"
+                                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span class="sr-only">Open user menu</span>
+                                <img class="w-8 h-8 rounded-full"
+                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    alt="user photo">
+                            </button>
+                        </div>
+                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                            id="dropdown-user">
+                            <div class="px-4 py-3" role="none">
+                                <p class="text-sm text-gray-900 dark:text-white" role="none">
+                                    {{ Auth::user()->name }}
+                                </p>
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                    {{ Auth::user()->email }}
+                                </p>
+                            </div>
+                            <ul class="py-1" role="none">
+
+
+
+                                <li>
+                                    <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                    <a onclick="event.preventDefault(); confirmLogout();" href="#"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">Sign out</a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <nav class="mt-4">
-                <a href="{{ route('admin.index') }}"
-                class="flex items-center text-sm py-2 px-4
-                       {{ request()->routeIs('admin.index') ? 'bg-gray-700 text-white' : 'text-gray-200' }}
-                       hover:bg-gray-700">
-                 <i class="fas fa-tachometer-alt mr-2"></i> <!-- Dashboard Icon -->
-                 Dashboard
-             </a>
-             <a href="{{ route('admin.users.index') }}"
-                class="flex items-center text-sm py-2 px-4
-                       {{ request()->routeIs('admin.users.index') ? 'bg-gray-700 text-white' : 'text-gray-200' }}
-                       hover:bg-gray-700">
-                 <i class="fas fa-users mr-2"></i> <!-- Users Icon -->
-                 Users
-             </a>
-             <a href="{{ route('doctrack.index') }}"
-                class="flex items-center text-sm py-2 px-4
-                       {{ request()->routeIs('doctrack.index') ? 'bg-gray-700 text-white' : 'text-gray-200' }}
-                       hover:bg-gray-700">
-                 <i class="fas fa-file-alt mr-2"></i> <!-- Document Tracking Icon -->
-                 Document Tracking
-             </a>
-             <a href="{{ route('personnel.document') }}"
-                class="flex items-center text-sm py-2 px-4
-                       {{ request()->routeIs('personnel.document') ? 'bg-gray-700 text-white' : 'text-gray-200' }}
-                       hover:bg-gray-700">
-                 <i class="fas fa-file mr-2"></i> <!-- Document Icon -->
-                 Personnel Document
-             </a>
-                <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf <!-- CSRF Protection -->
-                </form>
-                <a href="#" onclick="event.preventDefault(); confirmLogout();"
-       class="flex items-center text-sm py-2 px-4 hover:bg-gray-700">
-        <i class="fas fa-sign-out-alt mr-2"></i> <!-- Logout Icon -->
-        Logout
-    </a>
+        </div>
+    </nav>
 
-            </nav>
+    <aside id="logo-sidebar"
+        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        aria-label="Sidebar">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="{{ route('admin.index') }}" :active="request() - > routeIs('admin.index')"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <!-- Replace the SVG with a home/dashboard icon -->
+                        <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <!-- Add a margin to the left of the text -->
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.users.index') }}" :active="request() - > routeIs('admin.users.index')"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 14c3.866 0 7-2.239 7-5s-3.134-5-7-5-7 2.239-7 5 3.134 5 7 5zm0 0c2.761 0 5-1.343 5-3s-2.239-3-5-3-5 1.343-5 3 2.239 3 5 3zm0 0c-2.761 0-5 1.343-5 3m10 0c0-1.657-2.239-3-5-3">
+                            </path>
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+                    </a>
 
-        </aside>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
-        <!-- Page Content -->
-        <main class="bg-white flex-1 p-4">
-            {{ $slot }}
-        </main>
+
+
+    <!-- Page Content -->
+    <main>
+        {{ $slot }}
+    </main>
+
     </div>
-    <script>
+    	<script>
         function confirmLogout() {
             if (confirm('Are you sure you want to logout?')) {
                 document.getElementById('logoutForm').submit(); // Submit the hidden form
             }
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 
 </html>
