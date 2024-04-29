@@ -13,18 +13,30 @@ use App\Models\User;
 class DocumentController extends Controller
 {
     public function index()
-    {
+{
+    // Check if the logged-in user has the admin role
+    $isAdmin = Auth::user()->hasRole('admin');
+
+    // Fetch documents based on user role
+    if ($isAdmin) {
+        // If admin, fetch all documents
+        $documents = Document::all();
+    } else {
+        // If not admin, fetch documents associated with the currently logged-in user
         $documents = Document::where('user_id', Auth::id())->get();
-
-        // Load the user with the department information
-        $documents->load('user.department');
-
-        $departments = Department::all();
-        $personnelRole = Role::where('name', 'personnel')->first();
-        $personnelUsers = $personnelRole ? $personnelRole->users()->get() : [];
-
-        return view('doctrack.index', compact('documents', 'departments', 'personnelUsers'));
     }
+
+    // Load the user with the department information
+    $documents->load('user.department');
+
+    // Fetch departments and personnel users
+    $departments = Department::all();
+    $personnelRole = Role::where('name', 'personnel')->first();
+    $personnelUsers = $personnelRole ? $personnelRole->users()->get() : [];
+
+    // Return the view with the fetched data
+    return view('doctrack.index', compact('documents', 'departments', 'personnelUsers'));
+}
 
 
 
