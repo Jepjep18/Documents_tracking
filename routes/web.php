@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\DocumentTrackingController;
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/document-tracking', [DocumentController::class, 'index'])->name('doctrack.index');
@@ -16,6 +18,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('doctrack.destroy');
     Route::put('/documents/{id}', [DocumentController::class, 'update'])->name('doctrack.update');
     Route::get('/get-personnel/{department}', [DocumentController::class, 'getPersonnel'])->name('get.personnel');
+    Route::get('/download/reupload/{file}', [DocumentController::class, 'downloadReupload'])->name('download.reupload');
+    Route::get('/get-users-by-department/{departmentId}', [DocumentController::class, 'getUsersByDepartment']);
 
 });
 
@@ -68,6 +72,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'role:user'])->name('dashboard');
 
+//personnel
+Route::get('/document', [DocumentTrackingController::class, 'index'])->name('personnel.document');
+Route::get('/document/download/{file}', [DocumentTrackingController::class, 'download'])->name('document.download');
+Route::post('/document/upload', [DocumentTrackingController::class, 'upload'])->name('document.upload');
 
 require __DIR__.'/auth.php';
 
