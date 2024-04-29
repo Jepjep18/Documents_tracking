@@ -42,7 +42,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('personnel.document') }}" :active="request()->routeIs('personnel.document')">
                         <i class="fas fa-file-alt mr-2"></i>
-                        {{ __('Document Tracking') }}
+                        {{ __('Document Tracker') }}
                     </x-nav-link>
                 </div>
             @endrole

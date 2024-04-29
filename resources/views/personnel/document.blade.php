@@ -44,24 +44,41 @@
                                         <td class="py-2 text-left">{{ $document->user->name }}</td>
 
                                         <td class="py-2 text-left">
-                                            <a href="{{ route('document.download', $document->file_name) }}" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
+                                            <a href="#" onclick="return confirmDownload('{{ route('document.download', $document->file_name) }}');" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->file_name }}</a>
                                         </td>
                                         <td class="py-2 text-left">{{ $document->created_at }}</td>
                                         <td class="py-2 text-left">
                                             @if ($document->acceptance)
-                                                {{ $document->acceptance->accepted_at }}
+                                                <span style="color: green;">{{ $document->acceptance->accepted_at }}</span>
                                             @else
-                                                Not Accepted Yet
+                                                <span style="color: red;">Not Accepted Yet</span>
                                             @endif
                                         </td>
+
                                         <td class="py-2 text-left">
                                             @if ($document->acceptance && $document->acceptance->reuploaded_file_name)
-                                                <a href="{{ route('document.download', $document->acceptance->reuploaded_file_name) }}" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->acceptance->reuploaded_file_name }}</a>
+                                                <a href="{{ route('document.download', $document->acceptance->reuploaded_file_name) }}" style="color: green;" class="text-blue-600 hover:text-blue-800 font-semibold">{{ $document->acceptance->reuploaded_file_name }}</a>
                                             @else
-                                                No Re-uploaded File
+                                                <span style="color: red;">No Re-uploaded File</span>
                                             @endif
                                         </td>
-                                        <td class="py-2 text-left"><!-- Remarks Column --></td>
+
+                                        <td class="py-2 text-center">
+                                            @if ($document->acceptance && $document->acceptance->accepted_at && $document->acceptance->reuploaded_file_name)
+                                                <span class="text-green-500">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                </span>
+                                            @else
+                                                <span class="text-red-500">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                    </svg>
+                                                </span>
+                                            @endif
+                                        </td>
+
                                         <td class="py-2 text-left"><!-- Actions Column --></td>
                                     </tr>
                                 @endforeach
@@ -74,6 +91,15 @@
     </div>
 
     <script>
+        function confirmDownload(downloadUrl) {
+            if (confirm("Are you sure you want to accept and download the file?")) {
+                window.location.href = downloadUrl;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // Open Modal Button Click Event
         document.getElementById('openModalButton').addEventListener('click', function() {
             document.getElementById('reuploadModal').classList.remove('hidden');
