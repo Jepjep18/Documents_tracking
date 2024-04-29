@@ -1,5 +1,5 @@
-<x-app-layout>
-    
+<x-admin-layout>
+
     <div class="border border-gray-300 rounded-md p-4">
         <button id="openModalButton" class="px-4 py-2 bg-blue-500 text-white font-semibold uppercase">Create Documents</button>
     </div>
@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -126,4 +126,4 @@
             });
     </script>
 
-</x-app-layout>
+</x-admin-layout>
