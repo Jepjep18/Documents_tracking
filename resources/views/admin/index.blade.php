@@ -10,7 +10,7 @@
                             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2">
                                 <div class="flex justify-between items-center">
                                     <h2 class="text-2xl font-semibold">Manage Roles</h2>
-                                    <a href="{{ route('admin.roles.create') }}" class="px-4 py-2 bg-green-700 hover:bg-green-500 rounded-md">Create Role</a>
+                                    <a href="{{ route('admin.roles.create') }}" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Create Role</a>
                                 </div>
                                 <div class="flex flex-col">
                                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
