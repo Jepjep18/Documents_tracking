@@ -120,12 +120,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label for="document" class="block text-sm font-medium text-gray-700">Upload
-                                Document</label>
-                            <input type="file" id="document" name="document"
-                                class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
+                        <div id="document-container">
+                        <div class="mb-4 document-row">
+                            <label for="document[]" class="block text-sm font-medium text-gray-700">Upload Document</label>
+                            <input type="file" id="document[]" name="document[]" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md">
                         </div>
+                    </div>
+                    <div class="mb-4">
+                        <button type="button" id="add-document" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Add Another Document</button>
+                    </div>
+
                         <div class="mb-4">
                             <button type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white font-semibold rounded">Submit</button>
@@ -141,7 +145,14 @@
 
 
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#add-document').click(function() {
+                    $('#document-container').append('<div class="mb-4 document-row"><label for="document[]" class="block text-sm font-medium text-gray-700">Upload Document</label><input type="file" id="document[]" name="document[]" class="block w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md"></div>');
+                });
+            });
+        </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
