@@ -42,7 +42,6 @@
                                             <th class="w-1/6 py-2 text-left">Accept Date</th>
                                             <th class="w-1/6 py-2 text-left">Re-uploaded Files</th>
                                             <th class="w-1/6 py-2 text-left">Remarks</th>
-                                            <th class="w-1/6 py-2 text-left">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,7 +85,6 @@
                                             @endif
                                         </td>
 
-                                        <td class="py-2 text-left"><!-- Actions Column --></td>
                                     </tr>
                                 @endforeach
                                     </tbody>
