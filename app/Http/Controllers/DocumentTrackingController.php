@@ -11,7 +11,12 @@ class DocumentTrackingController extends Controller
 {
     public function index()
     {
-        $documents = Document::with('user', 'acceptance')->get();
+        // Fetch documents addressed to the logged-in personnel
+        $personnelName = Auth::user()->name;
+        $documents = Document::where('personnel', $personnelName)
+                        ->with('user', 'acceptance')
+                        ->get();
+
         return view('personnel.document', ['documents' => $documents]);
     }
 
