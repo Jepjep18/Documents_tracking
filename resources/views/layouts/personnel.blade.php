@@ -68,7 +68,7 @@
                                 </div>
                                 <ul class="py-1" role="none">
 
-                                  
+
 
                                     <li>
                                         <form id="logoutForm" method="POST" action="{{ route('logout') }}">
@@ -95,13 +95,10 @@
                         <a href="{{ route('personnel.index') }}" :active="request() - > routeIs('personnel.index')"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <!-- Replace the SVG with a home/dashboard icon -->
-                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                              </svg>
+
                             <!-- Add a margin to the left of the text -->
                             <span class="ms-3">Dashboard</span>
                         </a>
@@ -110,13 +107,10 @@
                         <a href="{{ route('personnel.document') }}" :active="request() - > routeIs('personnel.document')"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <!-- Replace the SVG with an icon related to personnel tracking -->
-                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 14s4-2.25 4-4V4a2 2 0 0 0-4 0v6c0 1.75 4 2 4 2M12 14s-4-2.25-4-4V4a2 2 0 0 1 4 0v6c0 1.75-4 2-4 2zm0 0a2.5 2.5 0 1 1 5 0M12 14s4-2.25 4-4V4a2 2 0 0 0-4 0v6c0 1.75 4 2 4 2M6 20h12m-6-4v4">
-                                </path>
-                            </svg>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2"/>
+                              </svg>
+
                             <!-- Add a margin to the left of the text -->
                             <span class="flex-1 ms-3 whitespace-nowrap">Personnel Tracking</span>
                         </a>

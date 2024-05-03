@@ -1,124 +1,168 @@
 <x-admin-layout>
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900">
-                            <div class="py-12 w-full">
-                                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2">
-                                        <div class="flex justify-between items-center">
-                                            <h2 class="text-2xl font-semibold">Manage Roles</h2>
-                                            <a href="{{ route('admin.roles.create') }}"
-                                                class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-md">Create
-                                                Role</a>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                                    <div
-                                                        class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                                        <table class="min-w-full divide-y divide-gray-200">
-                                                            <thead class="bg-gray-50">
-                                                                <tr>
-                                                                    <th scope="col"
-                                                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                                        Name</th>
-                                                                    <th scope="col" class="px-6 py-3">
-                                                                        <span class="sr-only">Actions</span>
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="bg-white divide-y divide-gray-200">
-                                                                @foreach ($roles as $role)
-                                                                    <tr>
-                                                                        <td class="px-6 py-4 whitespace-nowrap">
-                                                                            {{ $role->name }}</td>
-                                                                        <td
-                                                                            class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                                            <div class="flex justify-end">
-                                                                                <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                                                                    class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md mr-2">Edit</a>
-                                                                                <form
-                                                                                    action="{{ route('admin.roles.destroy', $role->id) }}"
-                                                                                    method="POST"
-                                                                                    onsubmit="return confirm('Are you sure you want to delete this?');"
-                                                                                    class="inline-block">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md">Delete</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
+                        <div class="px-4 mx-auto max-w-screen-2xl lg:px-12">
+                            <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+                                <div
+                                    class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
+                                    <div class="flex items-center flex-1 space-x-4">
+                                        <h5>
+                                            <span class="dark:text-white">Manage Roles</span>
+                                        </h5>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    </div>
+                                    <div
+                                        class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                                        <a href="{{ route('admin.roles.create') }}">
+                                            <button
+                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                <span
+                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                    Create Role
+                                                </span>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead
+                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
 
+                                                <th scope="col" class="px-4 py-3">Role Name</th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
+                                                    Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($roles as $role)
+                                                <tr
+                                                    class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
 
-                            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                                <div class="py-8">
-                                    <div class="flex justify-between items-center">
-                                        <h2 class="text-2xl font-semibold">Manage Departments</h2>
-                                        <a href="{{ route('departments.create') }}"
-                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add
-                                            New Department</a>
-                                    </div>
-                                    @if ($departments->isEmpty())
-                                        <p class="mt-4">No departments found.</p>
-                                    @else
-                                        <div class="overflow-hidden border border-gray-200 rounded-lg">
-                                            <table class="min-w-full divide-y divide-gray-200">
-                                                <thead class="bg-gray-50">
-                                                    <tr>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Name</th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                            Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="bg-white divide-y divide-gray-200">
-                                                    @foreach ($departments as $department)
-                                                        <tr>
-                                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                                {{ $department->name }}
-                                                            </td>
-                                                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                                                <a href="{{ route('departments.edit', $department->id) }}"
-                                                                    class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                                                <form
-                                                                    action="{{ route('departments.destroy', $department->id) }}"
-                                                                    method="POST" class="inline-block">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="text-red-600 hover:text-red-900">Delete</button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    @endif
+                                                    <th scope="row"
+                                                        class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $role->name }}
+                                                    </th>
+                                                    <td
+                                                        class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                                        <a href="{{ route('admin.roles.edit', $role->id) }}">
+                                                            <button
+                                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                                <span
+                                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                                    Edit
+                                                                </span>
+                                                            </button></a>
+                                                        <form action="{{ route('admin.roles.destroy', $role->id) }}"
+                                                            onsubmit="return confirm('Are you sure you want to delete this?');"
+                                                            method="POST" class="inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                                                                <span
+                                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                                    Delete
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
+                </div>
+
+                <!-- Department Management -->
+                <div>
+
+
+                    <section class="bg-gray-50 dark:bg-gray-900 py-3 sm:py-5">
+                        <div class="px-4 mx-auto max-w-screen-2xl lg:px-12">
+                            <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+                                <div
+                                    class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
+                                    <div class="flex items-center flex-1 space-x-4">
+                                        <h5>
+                                            <span class="dark:text-white">Manage Departments</span>
+                                        </h5>
+
+                                    </div>
+                                    <div
+                                        class="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                                        <a href="{{ route('departments.create') }}">
+                                            <button
+                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                <span
+                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                    Create Department
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead
+                                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+
+                                                <th scope="col" class="px-4 py-3">Department Name</th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
+                                                    Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($departments as $department)
+                                                <tr
+                                                    class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+
+                                                    <th scope="row"
+                                                        class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $department->name }}
+                                                    </th>
+                                                    <td
+                                                        class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                                        <a href="{{ route('departments.edit', $department->id) }}">
+                                                            <button
+                                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                                <span
+                                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                                    Edit
+                                                                </span>
+                                                            </button></a>
+                                                        <form
+                                                            action="{{ route('departments.destroy', $department->id) }}"
+                                                            method="POST" class="inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                                                                <span
+                                                                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                                    Delete
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

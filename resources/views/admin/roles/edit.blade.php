@@ -1,14 +1,10 @@
 <x-admin-layout>
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <a href="{{ route('admin.index') }}"><button type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Back</button></a>
             <div class="py-12 w-full">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2">
-                        <div class="flex p-2">
-                            <a href="{{ route('admin.index') }}"
-                                class="px-4 py-2 bg-green-700 hover:bg-green-500 text-slate-100 rounded-md">Role
-                                Index</a>
-                        </div>
                         <div class="flex flex-col p-2 bg-slate-100">
                             <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
                                 <form method="POST" action="{{ route('admin.roles.update', $role->id) }}">
@@ -33,46 +29,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="mt-6 p-2 bg-slate-100">
-                            <h2 class="text-2xl font-semibold">Role Permissions</h2>
-                            <div class="flex space-x-2 mt-4 p-2">
-                                @if ($role->permissions)
-                                    @foreach ($role->permissions as $role_permission)
-                                        <form class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"
-                                            method="POST"
-                                            action="{{ route('admin.roles.permissions.revoke', [$role->id, $role_permission->id]) }}"
-                                            onsubmit="return confirm('Are you sure you want to delete this?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">{{ $role_permission->name }}</button>
-                                        </form>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <div class="max-w-xl mt-6">
-                                <form method="POST" action="{{ route('admin.roles.permissions', $role->id) }}">
-                                    @csrf
-                                    <div class="sm:col-span-6">
-                                        <label for="permission"
-                                            class="block text-sm font-medium text-gray-700">Permission</label>
-                                        <select id="permission" name="permission" autocomplete="permission-name"
-                                            class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            @foreach ($permissions as $permission)
-                                                <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('name')
-                                        <span class="text-red-400 text-sm">{{ $message }}</span>
-                                    @enderror
-                            </div>
-                            <div class="sm:col-span-6 pt-5">
-                                <button type="submit"
-                                    class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Assign</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
