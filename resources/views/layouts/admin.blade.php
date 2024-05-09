@@ -161,6 +161,18 @@
                     </a>
 
                 </li>
+                <li>
+                    <a href="{{ asset('manuals/manual.pdf') }}" target="_blank"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">View Manual</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>
